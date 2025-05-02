@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TryYourCar</title>
+  
+  <!-- CSS Externo -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" rel="stylesheet">
+  
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #background-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #mainNav {
+      background-color: #1E3A8A;
+      padding: 20px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #FFFFFF;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      transform: scale(1.1);
+      color: #c7ccd6e1;
+    }
+
+    .form-container {
+      max-width: 450px;
+      margin: 100px auto;
+      color: #000;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-container h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+      color: #000;
+    }
+
+    .form-container label {
+      font-size: 14px;
+      color: #000;
+      margin-bottom: 5px;
+    }
+
+    .form-container label i {
+      color: #0043a7; /* Color de los iconos */
+      margin-right: 8px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="password"],
+    .form-container input[type="email"],
+    .form-container input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #000000;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .form-container input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background: #0043a7;
+      color: #ffffff;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-container input[type="submit"]:hover {
+      background: #000;
+      color: #ffffff;
+    }
+
+    .form-container .extras {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #000;
+    }
+
+
+    footer {
+      background-color: #172d68;
+      color: #ffffff;
+      padding: 40px 0;
+    }
+    .btn-login {
+      background: #0043a7; /* Color de fondo verde */
+    color: white; /* Texto blanco */
+ 
+}
+
+.btn-login:hover {
+  background: #000000; 
+  color: #FFFFFF;
+}
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" style="color:white;">TryYourCar</a>
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        <form th:action="@{/}" method="GET">
+          <button class="btn btn-outline-light">Volver</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div>
+
+  
+
+    <main>
+    <div class="form-container mx-auto px-3 px-md-4" style="max-width: 80%; width: 80%; max-width: 450px; margin-top: 200px; margin-bottom: 200px;">
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+</div>
+        
+           
+    <form th:action="@{/paginarestaurar}" method="POST">
+      <h1>Recuperación de contraseña</h1>
+      <div class="mb-3">
+        <label for="usernameOrEmail">
+          <i class="fas fa-user"></i> Nombre de usuario o correo electrónico:
+        </label>
+        <div class="icon-input-group">
+          <input type="text" id="usernameOrEmail" name="usernameOrEmail" required placeholder="Nombre de usuario o correo electrónico">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <input type="submit" value="Enviar código">
+      </div>
+    </form>
+        </div>
+          
+
+        <footer>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-5 mb-4">
+                <h5>Sobre Nosotros</h5>
+                <p>Somos una empresa líder en ofrecer pruebas de vehículos sin compromiso. Disfruta de la experiencia con TryYourCar.</p>
+              </div>
+      
+              <div class="col-lg-5 mb-4">
+                <h5>Contacto</h5>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-map-marker-alt me-2"></i>Calle Río Ñora, 33212 Gijón, Asturias</li>
+                  <li><i class="fas fa-phone me-2"></i>+34 123 456 789</li>
+                  <li><i class="fas fa-envelope me-2"></i>contacto@tryyourcar.com</li>
+                </ul>
+              </div>
+      
+              <div class="col-lg-2">
+                <h5>Síguenos</h5>
+                <div class="d-flex">
+                  <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <p>&copy; 2025 TryYourCar. Todos los derechos reservados.</p>
+            </div>
+          </div>
+        </footer>
+      
+        <!-- Scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      </body>
+      </html>            

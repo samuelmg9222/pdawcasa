@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encabezado con Bootstrap</title>
+  <!-- Enlace a Bootstrap desde CDN -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<style>
+     .cuadro {
+        min-height: 35vh; /* Altura proporcional a la pantalla */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        border: 1px solid #ddd; /* Solo para visualizar el borde */
+        flex-grow: 1; /* Hace que el contenido crezca si es necesario */
+        overflow: auto;
+    }
+
+    .cuadro img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Asegura que la imagen cubra todo el espacio */
+    }
+
+    .tac{
+        background-color: yellow;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+    }
+</style>
+<body>
+    <header>
+  <div class="container">
+    <div class="row align-items-center col-12">
+      <!-- Columna para la imagen -->
+      <div class="col-lg-2 col-md-3 col-4">
+        <img src="icono.jpg" alt="Icono" class="img-fluid">
+      </div>
+      
+      <!-- Columna para el título -->
+      <div class=" ml-3">
+       <a href="" class="mr-3">abcdef</a>
+       <a href="" class="mr-3">abcdef</a>
+       <a href="" class="mr-3">abcdef</a>
+       <a href="" class="mr-3">abcdef</a>
+       <a href="" class="mr-3">abcdef</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<main>
+    <div class="container">
+        <!-- Primera fila -->
+        <div class="row mt-4  justify-content-center align-items-center">
+            <div class="col-lg-6 col-md-6 col-12-sm ">
+                <div class="cuadro d-flex flex-column h-100">
+                    <h2>CIFP LA LABORAL</h2>
+                    <p>Texto de ejem ssdsdda  sdwadwasda  sdasda dasdasd asdsdsdasdadfs   dfssdf eesdfes fesfesf    dfdf dfdfd fdfdfdf   bd wd  wdwv wadwadwadwadw adwadwadw adwadwadw asdsdwad wadwadwa dwdwadwad   adwd  fdfdfdadwad wawdfw awdawdwad  df  dfdf dfdfdfplo para probar la distribución de columnas.</p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12-sm mt-4">
+                <div class="cuadro d-flex flex-column h-100">
+                    <img src="1.jpg" class="img-fluid">
+                </div>
+            </div>
+        
+
+        <!-- Segunda fila -->
+        
+            <div class="col-lg-6 col-md-6 col-12-sm mt-4">
+                <div class="cuadro d-flex flex-column h-100">
+                    <img src="1.jpg" class="img-fluid">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12-sm mt-4">
+                <div class="cuadro d-flex flex-column h-100">
+                    <p>aa</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container tac">
+        <div class="row align-items-center ml-5">
+            <div class="col-12">
+         <h1>A B C D E F G H I J Q</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="container tarjetas3 mt-4">
+        <div class="row g-3 justify-content-center align-items-center">
+            <div class=" col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
+                <img src="1.jpg" class="img-fluid">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
+                <img src="1.jpg" class="img-fluid">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
+                <img src="1.jpg" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <div class="container tac">
+        <div class="row align-items-center ml-5">
+            <div class="col-12">
+         <h1>A B C D E F G H I J Q</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+       
+</main>
+
+
+
+
+
+  <!-- Scripts necesarios para Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zyeQxU7a1Iu4J6S4Z4cZXks8p5N76y9ha9cLtl6X" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0CqzW7YoA6NQb1gW6E5f9YmoEZCxnObWauPSRuGoZeHHTI1p" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0CqzW7YoA6NQb1gW6E5f9YmoEZCxnObWauPSRuGoZeHHTI1p" crossorigin="anonymous"></script>
+</body>
+
+</html>

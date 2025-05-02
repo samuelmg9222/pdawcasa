@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Exitoso - Try Your Car</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Estilos personalizados */
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .success-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: slideIn 1s forwards;
+        }
+        .btn-primary-custom {
+            background-color: #1E3A8A;
+            border-color: #1E3A8A;
+            color: #ffffff;
+            transition: background-color 0.3s;
+        }
+        .btn-primary-custom:hover {
+            background-color: #000000;
+            border-color: #1c2c6d;
+            color: #f8fafc;
+        }
+        .icon {
+            font-size: 70px;
+            color: #1E3A8A;
+            animation: iconBounce 1s infinite alternate;
+        }
+        h2 {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+        p {
+            font-size: 1.1em;
+        }
+        .more-info {
+            margin-top: 30px;
+            font-size: 1em;
+            color: #555;
+        }
+
+        .more-info h4 {
+            color: #1E3A8A;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes iconBounce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="success-container text-center">
+            <div class="icon mb-4">
+                <i class="fas fa-car-side"></i> <!-- Icono de coche -->
+            </div>
+            <h2 class="mb-3">¡Registro Exitoso!</h2>
+            <p class="mb-4">Tu cuenta ha sido creada correctamente. Ahora puedes iniciar sesión y comenzar a disfrutar de nuestros servicios.</p>
+            <a href="/login" class="btn btn-primary-custom btn-lg">Ir a Iniciar Sesión</a>
+            
+            <!-- Nueva sección de contenido adicional -->
+            <div class="more-info">
+                <h4>¿Qué puedes hacer ahora?</h4>
+                <p>Ahora que tienes tu cuenta, puedes:</p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-car"></i> Explorar nuestra amplia gama de vehículos disponibles.</li>
+                    <li><i class="fas fa-user"></i> Personalizar tu perfil para que tu experiencia sea única.</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Solicitar pruebas de manejo para cualquier coche que te interese.</li>
+                    <li><i class="fas fa-cogs"></i> Acceder a promociones y ofertas exclusivas solo para miembros.</li>
+                </ul>
+                <p>¡Nos alegra tenerte con nosotros y esperamos que disfrutes de la experiencia Try Your Car!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

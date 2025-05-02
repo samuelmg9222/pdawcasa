@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TryYourCar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" rel="stylesheet">
+<link href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" rel="stylesheet">
+  <style>
+
+body {
+  background-color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+.navbar-nav .nav-link {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  transform: scale(1.1); 
+  color: #c7ccd6e1;
+}
+
+.navbar-toggler {
+  color: #f8f8f8;
+
+}
+.btn-custom {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.login-btn {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+.login-btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: white;
+}
+
+.reg-btn {
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  color: rgb(0, 0, 0);
+  margin-left: 10px;
+}
+
+.reg-btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: white;
+}
+
+@media (min-width: 1024px) {
+    .masthead .masthead-subheading {
+      font-size: 2.5rem; /* Ajuste del tamaño de la fuente */
+    }
+    .masthead .masthead-heading {
+      font-size: 5rem;
+    }
+    .container {
+      margin-top: -100px; /* Ajuste del margen */
+    }
+  }
+
+  /* Para pantallas medianas */
+  @media (max-width: 1024px) and (min-width: 768px) {
+    .masthead .masthead-subheading {
+      font-size: 1.8rem; /* Ajuste del tamaño de la fuente */
+    }
+    .masthead .masthead-heading {
+      font-size: 4rem;
+    }
+    .container {
+      margin-top: -80px; /* Ajuste del margen */
+    }
+  }
+
+  /* Para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .masthead .masthead-subheading {
+      font-size: 1.5rem;
+    }
+    .masthead .masthead-heading {
+      font-size: 2.5rem;
+    }
+    .container {
+      margin-top: -50px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .btn {
+      font-size: 1rem;
+      padding: 12px 24px;
+    }
+  }
+
+.masthead {
+  background: url('/static/main.jpg') no-repeat center center;
+  background-size: cover;
+  color: rgb(10, 10, 10);
+  padding: 150px 0;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.masthead .masthead-subheading {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color:#FFFFFF;
+  margin-top: 70px;
+}
+
+.masthead .masthead-heading {
+  font-size: 60px;
+  font-weight: 700;
+  margin-top: 20px;
+  color:#FFFFFF;
+}
+
+.masthead .btn-primary {
+  background-color: #1E3A8A;
+  border-color: #172d68;
+  padding: 15px 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.masthead .btn-primary:hover {
+  background-color: #172d68;
+  border-color: #23262e;
+  transform: scale(1.1);
+}
+
+.container {
+  margin-top:50px;
+  padding-left: 15px;  /* Añadido para un poco de espacio a la izquierda */
+  padding-right: 15px; /* Añadido para un poco de espacio a la derecha */
+}
+
+/* Asegurar que el navbar está centrado */
+#mainNav {
+  background-color: #1E3A8A;
+  padding: 4%;  /* Añadido padding para que los elementos no estén pegados */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center; /* Centra los elementos de la lista */
+  width: 100%;
+}
+
+.navbar-nav .nav-item {
+  margin: 0 10px; /* Ajusta el espacio entre los elementos del menú */
+}
+
+/* Para que la imagen de fondo del masthead se vea mejor en dispositivos pequeños */
+@media (max-width: 768px) {
+  .masthead {
+    padding: 100px 0;
+    color:#FFFFFF;
+  }
+
+  .masthead .masthead-subheading {
+    color: #FFFFFF;
+    font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideIn 1.2s ease-out forwards;
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  }
+
+  .masthead .masthead-heading {
+    color:#FFFFFF;
+    margin-bottom: 20px;
+    text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideIn 1.2s ease-out forwards;
+    
+  }
+
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.tittle {
+  font-family: 'Arial', sans-serif;
+  font-size: 36px; 
+  font-weight: bold; 
+  color: #FFFFFF;
+  letter-spacing: 2px; 
+  text-decoration: none; 
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tittle:hover {
+  transform: scale(1.2); 
+  
+}
+
+@media (max-width: 768px) {
+  .tittle {
+    font-size: 28px;
+  }
+}
+
+.card {
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  display: flex; 
+  flex-direction: column; /* Asegura que el contenido se apile verticalmente */
+  height: 100%; /* Asegura que la tarjeta ocupe todo el espacio disponible */
+}
+
+.card-body {
+  background-color: #ffffff;
+  padding: 15px;
+  text-align: center;
+  flex-grow: 1; /* Hace que el contenido de la tarjeta ocupe el espacio restante */
+}
+
+.card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: contain; /* Recorta la imagen para que llene el espacio disponible sin distorsionarse */
+  height: 200px; /* Asegura que la imagen tenga una altura constante */
+  width: 100%;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+
+
+#moreText {
+  display: none;
+}
+
+.carousel-inner{
+  padding: 20px;
+}
+#footer{
+  background-color: #172d68;
+  color: #172d68;
+}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+/* Category Ads */
+
+#ads {
+    margin: 30px 0 30px 0;
+   
+}
+
+ .card-notify-badge {
+        position: absolute;
+        left: -10px;
+        top: -20px;
+        background:  #ac9a00;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px; 
+        color: #ffffff;
+        padding: 5px 10px;
+        font-size: 14px;
+
+    }
+
+ .card-notify-year {
+        position: absolute;
+        right: -10px;
+        top: -20px;
+        background: #ff0000;
+        border-radius: 50%;
+        text-align: center;
+        color: #fff;      
+        font-size: 14px;      
+        width: 50px;
+        height: 50px;    
+        padding: 15px 0 0 0;
+}
+
+
+ .card-detail-badge {      
+        background: #1E3A8A;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px;
+        color: #ffffff;
+        padding: 5px 10px;
+        font-size: 14px;        
+    }
+
+   
+
+ .card:hover {
+            background: #fff;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+ .card-image-overlay {
+        font-size: 20px;
+        
+    }
+
+
+ .card-image-overlay span {
+            display: inline-block;              
+        }
+
+
+ .ad-btn {
+        text-transform: uppercase;
+        width: 150px;
+        height: 40px;
+        border-radius: 80px;
+        font-size: 16px;
+        line-height: 35px;
+        text-align: center;
+        border: 3px solid #002792;
+        display: block;
+        text-decoration: none;
+        margin: 20px auto 1px auto;
+        color: #ffffff;
+        overflow: hidden;        
+        position: relative;
+        background-color: #1E3A8A;;
+    }
+
+ .ad-btn:hover {
+            background-color: #ffffff;
+            color: #1e1717;
+            border: 2px solid #1E3A8A;
+            background: transparent;
+            transition: all 0.3s ease;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+        }
+
+ .ad-title h5 {
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/login}" method="GET">
+    <button type="submit" class="btn-custom login-btn">Login</button>
+</form>
+  <form th:action="@{/registro}" method="GET">
+    <button type="submit" class="btn-custom reg-btn">Registro</button>
+</form>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+          <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#modelos">Modelos Destacados</a></li>
+          <li class="nav-item"><a class="nav-link" th:href="@{/vertodos}">Ver todos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#footer">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+<header class="masthead position-relative text-center text-white" style="height: 100vh; overflow: hidden;">
+  
+  <!-- Imagen de fondo -->
+  <img th:src="@{/images/main.jpg}" alt="Imagen de fondo"
+       class="w-100 h-100 position-absolute top-0 start-0 object-fit-cover" style="z-index: -2;">
+
+  <!-- Capa oscura -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); z-index: -1;"></div>
+
+  <!-- Contenido centrado -->
+  <div class="container d-flex flex-column justify-content-center align-items-center h-100 position-relative px-3" style="z-index: 1;">
+    <h2 class="fw-light mb-3 animate__animated animate__fadeInDown fs-4 fs-md-3 fs-lg-2">
+      ¡Bienvenido a <strong>TryYourCar</strong>!
+    </h2>
+    <h1 class="fw-bold text-uppercase mb-4 animate__animated animate__fadeInUp display-6 display-md-4 display-lg-3">
+      Prueba tu vehículo deseado sin compromiso
+    </h1>
+    <a class="btn btn-primary btn-lg text-uppercase shadow animate__animated animate__fadeInUp animate__delay-1s" href="#services">
+      Más información
+    </a>
+  </div>
+</header>
+
+<main>
+  <div id="services" class="container services">
+    <div class="row justify-content-center g-5">
+
+      <!-- Card 1 -->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+        <div class="card">
+          <img th:src="@{/images/ahorrar-dinero.gif}" class="card-img-top" alt="Imagen 1">
+          <div class="card-body">
+            <h3>¿Cuanto hay que pagar?</h3>
+            <p class="card-text">En TryYourCar nos comprometemos a que pruebes los coches que desees sin necesidad de pagar nada</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+        <div class="card">
+          <img th:src="@{/images/premio.gif}" class="card-img-top" alt="Imagen 2">
+          <div class="card-body">
+            <h3>¿Quienes Somos?</h3>
+            <p class="card-text">Líderes en el sector, TryYourCar brinda confianza, seguridad y flexibilidad para sus clientes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+        <div class="card">
+          <img th:src="@{/images/objetivos.gif}" class="card-img-top" alt="Imagen 4">
+          <div class="card-body">
+            <h3>¿Cual es nuestra meta?</h3>
+            <p class="card-text">En TryYourCar el objetivo es que disfrutes de la experiencia de probar el coche que desees sin ningún compromiso</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-lg-3 col-md-6 col-sm-6 col-6 mb-4">
+        <div class="card">
+          <img th:src="@{/images/tierra.gif}" class="card-img-top" alt="Imagen 4">
+          <div class="card-body">
+            <h3>¿Donde nos encontramos?</h3>
+            <p class="card-text">TryYourCar se encuentra en la Calle Río Ñora, 33212 Gijón, Asturias, España, en donde hay una amplia zona para probar nuestros vehículos.</p>
+            
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+
+
+  <div class="container" id="modelos">
+  <div class="row" id="ads">
+    <h1 style="text-align: center;">Modelos destacados</h1>
+    <!-- Category Card -->
+    <div class="col-lg-4 col-md-6  mt-5 d-none d-sm-block"
+    th:each="vehiculo : ${vehiculos}">
+        <div class="card rounded">
+            <div class="card-image">
+              <span class="card-notify-badge"
+              th:text="${vehiculo.kilometraje < 20000 ? 'Low KMS' : (vehiculo.precio < 50000 ? 'Precio Bajo' : 'Buena oportunidad')}">
+        </span>
+              <span class="card-notify-year" th:text="${vehiculo.añofabricacion}"></span>
+              <div style="height: 200px; overflow: hidden; display: flex; justify-content: center; align-items: center;">
+                <img class="img-fluid" th:src="@{${vehiculo.foto}}" alt="Foto del coche" style="height: 100%; object-fit: cover;" />
+              </div>
+            </div>
+            <div class="card-image-overlay m-auto">
+                <span class="card-detail-badge" th:text="${vehiculo.marca}"></span>
+                <span class="card-detail-badge" th:text="${vehiculo.kilometraje + ' Kms'}"></span>
+                <span class="card-detail-badge" th:text="${#numbers.formatDecimal(vehiculo.precio, 0, 0) + ' €'}"></span>
+
+            </div>
+            <div class="card-body text-center">
+                <div class="ad-title m-auto">
+                  <h5 th:text="${vehiculo.marca} + ' ' + ${vehiculo.modelo}"></h5>
+                </div>
+                <a class="ad-btn" th:href="@{/detalles/{id}(id=${vehiculo.id})}">Saber más</a>
+            </div>
+        </div>
+    </div>
+   
+</div>
+</div>
+
+
+
+<div id="carouselCards" class="carousel slide d-block d-sm-none" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <!-- Iterar sobre todos los vehículos para crear un carrusel con cada uno -->
+    <div class="carousel-item" th:each="vehiculo, iterStat : ${vehiculos}" 
+      th:classappend="${iterStat.index == 0} ? ' active' : ''">
+      <!-- Verifica si es el primer elemento para agregar la clase 'active' -->
+      <div class="card rounded">
+        <div class="card-image">
+          <span class="card-notify-badge" th:text="${vehiculo.kilometraje < 20000 ? 'Low KMS' : ''}"></span>
+          <span class="card-notify-year" th:text="${vehiculo.añofabricacion}"></span>
+          <img class="img-fluid" th:src="@{${vehiculo.foto}}" alt="Foto del coche" />
+        </div>
+        <div class="card-image-overlay m-auto">
+          <span class="card-detail-badge" th:text="${vehiculo.marca}"></span>
+          <span class="card-detail-badge" th:text="${vehiculo.precio}"></span>
+          <span class="card-detail-badge" th:text="${vehiculo.kilometraje + ' Kms'}"></span>
+        </div>
+        <div class="card-body text-center">
+          <div class="ad-title m-auto">
+            <h5 th:text="${vehiculo.marca} + ' ' + ${vehiculo.modelo}"></h5>
+          </div>
+                        <a class="ad-btn" th:href="@{/detalles/{id}(id=${vehiculo.id})}">Saber más</a>
+        </div>
+      </div>
+    </div>
+    <!-- Fin de un item del carrusel -->
+  </div>
+    
+  <button 
+    class="carousel-control-prev" 
+    type="button" 
+    data-bs-target="#carouselCards" 
+    data-bs-slide="prev"
+    style="width: 40px; height: 40px; background-color: rgba(0,0,0,0.5); border: none; border-radius: 50%; top: 50%; transform: translateY(-50%); left: 10px;">
+    <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(1);"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  
+  <button 
+    class="carousel-control-next" 
+    type="button" 
+    data-bs-target="#carouselCards" 
+    data-bs-slide="next"
+    style="width: 40px; height: 40px; background-color: rgba(0,0,0,0.5); border: none; border-radius: 50%; top: 50%; transform: translateY(-50%); right: 10px;">
+    <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(1);"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+</main>
+
+
+
+<footer class="text-white py-4" id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-md-6 mb-5 mb-lg-0">
+        <h5>Sobre Nosotros</h5>
+        <p>Somos una empresa líder en ofrecer pruebas de vehículos sin compromiso. Disfruta de la experiencia con TryYourCar.</p>
+      </div>
+      
+      <div class="col-lg-5 col-md-6 mb-2 mb-lg-0">
+        <h5>Contacto</h5>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-map-marker-alt"></i> Calle Río Ñora, 33212 Gijón, Asturias, España</li>
+          <li><i class="fas fa-phone"></i> +34 123 456 789</li>
+          <li><i class="fas fa-envelope"></i> contacto@tryyourcar.com</li>
+        </ul>
+      </div>
+
+      <div class="col-lg-2 col-md-12 mt-4">
+        <h5>Síguenos</h5>
+        <ul class="list-unstyled d-flex">
+          <li class="me-3">
+            <a href="#" class="text-white" target="_blank">
+              <i class="fab fa-facebook"></i>
+            </a>
+          </li>
+          <li class="me-3">
+            <a href="#" class="text-white" target="_blank">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="me-3">
+            <a href="#" class="text-white" target="_blank">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 d-block d-sm-none text-center mt-3">
+        <p>&copy; 2025 TryYourCar. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
