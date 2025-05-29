@@ -34,16 +34,16 @@ public class Evaluacion implements Serializable{
     private LocalDateTime fehcahora;
     
     @Column(name = "calificación")
-    private int calificación;
+    private Integer calificación;
 	
 	@Column(name="comentario")
 	private String comentario;
 	@ManyToOne
 	@JoinColumn(name="idvehiculo")
 	private Vehiculo vehiculo;
-	@ManyToOne
-	@JoinColumn(name="idcliente")
-	private Cliente cliente;
+	 @ManyToOne
+	 @JoinColumn(name="idcliente")
+	 private Cliente cliente;
 	
 	
 	@OneToOne

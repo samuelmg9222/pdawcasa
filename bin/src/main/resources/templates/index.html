@@ -417,24 +417,26 @@ body {
     </div>
   </nav>
   
+<header class="masthead position-relative text-center text-white" style="height: 100vh; overflow: hidden;">
+  
+  <!-- Imagen de fondo -->
+  <img th:src="@{/images/main.jpg}" alt="Imagen de fondo"
+       class="w-100 h-100 position-absolute top-0 start-0 object-fit-cover" style="z-index: -2;">
 
-<header class="masthead" style="position: relative; overflow: hidden; height: 100vh;">
+  <!-- Capa oscura -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.6); z-index: -1;"></div>
 
-  <img th:src="@{/images/main.jpg}" alt="Imagen de ejemplo"
-       style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-              object-fit: cover; z-index: -2;">
-
-  <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-              background-color: rgba(0, 0, 0, 0.5); z-index: -1;"></div>
-
-
-  <div class="container" style="position: relative; z-index: 1; margin-top: -50px;">
-    <div class="masthead-subheading" style="font-size: 1.5rem; color: white;">¡Bienvenido a TryYourCar!</div>
-    <div class="masthead-heading text-uppercase" style="font-size: 3rem; font-weight: 700; color: white;">
+  <!-- Contenido centrado -->
+  <div class="container d-flex flex-column justify-content-center align-items-center h-100 position-relative px-3" style="z-index: 1;">
+    <h2 class="fw-light mb-3 animate__animated animate__fadeInDown fs-4 fs-md-3 fs-lg-2">
+      ¡Bienvenido a <strong>TryYourCar</strong>!
+    </h2>
+    <h1 class="fw-bold text-uppercase mb-4 animate__animated animate__fadeInUp display-6 display-md-4 display-lg-3">
       Prueba tu vehículo deseado sin compromiso
-    </div>
-    <br>
-    <a class="btn btn-primary btn-xl text-uppercase" href="#services">Más información</a>
+    </h1>
+    <a class="btn btn-primary btn-lg text-uppercase shadow animate__animated animate__fadeInUp animate__delay-1s" href="#services">
+      Más información
+    </a>
   </div>
 </header>
 
@@ -549,7 +551,7 @@ body {
           <div class="ad-title m-auto">
             <h5 th:text="${vehiculo.marca} + ' ' + ${vehiculo.modelo}"></h5>
           </div>
-          <a class="ad-btn" href="#">View</a>
+                        <a class="ad-btn" th:href="@{/detalles/{id}(id=${vehiculo.id})}">Saber más</a>
         </div>
       </div>
     </div>

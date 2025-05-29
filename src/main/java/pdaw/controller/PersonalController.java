@@ -14,7 +14,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,57 +51,54 @@ private final String UPLOAD_DIR = "src/main/resources/static/coches/";
 
 @GetMapping("/personal")
 public String mostrarFormulario(Model model) {
+
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    String rol = auth.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .findFirst()
+            .orElse("ROLE_ANONYMOUS");
+
+    model.addAttribute("rol", rol);
     model.addAttribute("vehiculo", new Vehiculo());
     return "personal";
 }
 
 @PostMapping("/personal/guardarvehiculo")
-public String guardarVehiculo(@ModelAttribute Vehiculo vehiculo, Model model, @RequestParam("fotoBase64") String fotoBase64) {
-	 try {
-	        
-	        if (fotoBase64.isEmpty()) {
-	            model.addAttribute("error", "La foto no puede estar vacía.");
-	            return "redirect:/personal";
-	        }
+public String guardarVehiculo(@ModelAttribute Vehiculo vehiculo, 
+                              RedirectAttributes redirectAttrs,
+                              @RequestParam("fotoBase64") String fotoBase64) {
+    try {
+        if (fotoBase64.isEmpty()) {
+            redirectAttrs.addFlashAttribute("error", "La foto no puede estar vacía.");
+            return "redirect:/personal";
+        }
 
-	        
-	        byte[] imageBytes = Base64.getDecoder().decode(fotoBase64);
-	        
-	        
-	        String nombreArchivo = System.currentTimeMillis() + ".jpg";
-	        String uploadDir = "src/main/resources/static/images/coches/";
+        byte[] imageBytes = Base64.getDecoder().decode(fotoBase64);
+        String nombreArchivo = System.currentTimeMillis() + ".jpg";
+        String uploadDir = "src/main/resources/static/images/coches/";
 
-	        
-	        Path path = Paths.get(uploadDir);
-	        if (!Files.exists(path)) {
-	            Files.createDirectories(path);
-	        }
+        Path path = Paths.get(uploadDir);
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
 
-	        
-	        Path rutaCompleta = path.resolve(nombreArchivo);
-	        Files.write(rutaCompleta, imageBytes);
+        Path rutaCompleta = path.resolve(nombreArchivo);
+        Files.write(rutaCompleta, imageBytes);
 
-	        
-	        String fotoUrl = "/images/coches/" + nombreArchivo;
+        String fotoUrl = "/images/coches/" + nombreArchivo;
+        vehiculo.setFoto(fotoUrl);
 
-	       
-	       
-	        vehiculo.setFoto(fotoUrl);
+        servvehiculo.insertarVehiculo(vehiculo);
 
-	      
-	        servvehiculo.insertarVehiculo(vehiculo);
+        redirectAttrs.addFlashAttribute("exito", "Vehículo guardado correctamente.");
+        return "redirect:/personal";
 
-	        return "redirect:/personal?exito";
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        model.addAttribute("error", "Hubo un error al guardar la foto.");
-	        return "redirect:/personal";
-	    }
-   
-
+    } catch (IOException e) {
+        e.printStackTrace();
+        redirectAttrs.addFlashAttribute("error", "Hubo un error al guardar la foto.");
+        return "redirect:/personal";
+    }
 }
-
-
    
 @GetMapping("/gestiondecitas")
 public String verMisCitas(
@@ -107,7 +107,15 @@ public String verMisCitas(
         @RequestParam(required = false) String rangoFecha,
         @RequestParam(required = false) String orden,
         Model model) {
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+    // Obtener el rol del usuario (puede haber más de uno, aquí tomamos el primero)
+    String rol = auth.getAuthorities().stream()
+                     .map(GrantedAuthority::getAuthority)
+                     .findFirst()
+                     .orElse("ROLE_ANONYMOUS");
+
+    model.addAttribute("rol", rol);
     List<CitasDePrueba> todasCitas = servcita.findAllPendiente();
     List<CitasDePrueba> citasFiltradas = todasCitas;
 
@@ -172,6 +180,7 @@ public String verMisCitas(
 		    @PostMapping("/rechazarcita")
 		    public String cancelarCita(@RequestParam Long id,RedirectAttributes redirectAttributes) {
 		        CitasDePrueba cita = servcita.findById(id);
+		        
 		        if (cita != null && (cita.getTipo() == Estado.PENDIENTE || cita.getTipo() == Estado.ACEPTADA)
 		            && cita.getFechahora().isAfter(LocalDateTime.now())) {
 		            cita.setTipo(Estado.RECHAZADA);
@@ -191,7 +200,7 @@ public String verMisCitas(
 		        mensaje.setText(cuerpo);
 
 		        mailSender.send(mensaje);
-		        redirectAttributes.addFlashAttribute("mensajeExito", "La cita se ha rechazado correctamente.");
+		        redirectAttributes.addFlashAttribute("mensajeExito", "Tu acción se ha completado correctamente.");
 		        return "redirect:/gestiondecitas";
 
 		    }
@@ -223,7 +232,19 @@ public String verMisCitas(
 
 		    }
 		    
-		    
+		    @GetMapping("/personalpage")
+			public String personalpage(Model model) {
+		    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+			    // Obtener el rol del usuario (puede haber más de uno, aquí tomamos el primero)
+			    String rol = auth.getAuthorities().stream()
+			                     .map(GrantedAuthority::getAuthority)
+			                     .findFirst()
+			                     .orElse("ROLE_ANONYMOUS");
+
+			    model.addAttribute("rol", rol);
+			    return "personalpage"; 
+			}    
 		    @GetMapping("/cliente/{id}")
 		    public String verMisCitas(
 		    		@RequestParam(required = false) String conValoracion,
@@ -233,7 +254,15 @@ public String verMisCitas(
 		            @RequestParam(required = false) String rangoFechaEv,
 		            @PathVariable Long id,
 		            Model model) {
+		    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
+			    // Obtener el rol del usuario (puede haber más de uno, aquí tomamos el primero)
+			    String rol = auth.getAuthorities().stream()
+			                     .map(GrantedAuthority::getAuthority)
+			                     .findFirst()
+			                     .orElse("ROLE_ANONYMOUS");
+
+			    model.addAttribute("rol", rol);
 		        
 		        Cliente cliente = servcliente.findById(id);
 

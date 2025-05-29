@@ -574,7 +574,7 @@ body {
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg py-4" id="mainNav">
+<nav th:if="${rol == 'ROLE_CLIENTE'}" class="navbar navbar-expand-lg py-4" id="mainNav">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">
         <img th:src="@{/images/tryyourcarlogo.png}" alt="Icono" style="width: 100px; height: auto; margin-right: 10px;">
@@ -602,7 +602,88 @@ body {
     </div>
   </div>
 </nav>
-
+   <nav th:if="${rol == 'ROLE_ADMIN'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+             <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Personal
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+  <li><a class="dropdown-item" th:href="@{/listar}"><i class="fas fa-plus-circle"></i> Listado de personal</a></li>
+ <li><a class="dropdown-item" th:href="@{/anadirPersonal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarpersonal}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarpersonal}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+ 
+      <nav th:if="${rol == 'ROLE_PERSONAL'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+       
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
       
       
    <div class="container mt-5">

@@ -1,7 +1,10 @@
 package pdaw.services;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import pdaw.modelo.Cliente;
@@ -13,8 +16,15 @@ public class UsuarioService {
 	@Autowired
 	UsuarioRepos usuariorepos;
 	
-	
-	
+	 public Page<Usuario> listarTodo(Pageable pageable) {
+	        return usuariorepos.findAll(pageable);
+	    }
+	 public Page<Usuario> buscarPorFechaNacimientoEntre(LocalDate desde, LocalDate hasta, Pageable pageable) {
+	        return usuariorepos.findByFechanacBetween(desde, hasta, pageable);
+	    }
+	    public Usuario buscarPorId(Long id) {
+	        return usuariorepos.findById(id).orElse(null);
+	    }
 	public void insertarusuario(Usuario user) {
 		usuariorepos.saveAndFlush(user);
 	}
@@ -27,7 +37,9 @@ public class UsuarioService {
 		}
 		return 1;
 	}
-	
+	public void eliminar(Usuario user) {
+		usuariorepos.delete(user);
+	}
 	public int existeNEmail(String email) {
 	    List<Usuario> todos = usuariorepos.findAll();
 if(email==null) {

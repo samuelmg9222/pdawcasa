@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TryYourCar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" rel="stylesheet">
+<link href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+ 
+  <style>
+   .btn-cancelar {
+        background-color: #0d6efd; /* azul bootstrap */
+        color: white;
+    }
+
+    .btn-cancelar:hover {
+        background-color: black;
+        color: white;
+    }
+body {
+  background-color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+.navbar-nav .nav-link {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  transform: scale(1.1); 
+  color: #c7ccd6e1;
+}
+
+.navbar-toggler {
+  color: #f8f8f8;
+
+}
+.btn-custom {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+.login-btn {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+.login-btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: white;
+}
+
+.reg-btn {
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  color: rgb(0, 0, 0);
+  margin-left: 10px;
+}
+
+.reg-btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: white;
+}
+
+@media (min-width: 1024px) {
+    .masthead .masthead-subheading {
+      font-size: 2.5rem; /* Ajuste del tamaño de la fuente */
+    }
+    .masthead .masthead-heading {
+      font-size: 5rem;
+    }
+    .container {
+      margin-top: -100px; /* Ajuste del margen */
+    }
+  }
+
+  /* Para pantallas medianas */
+  @media (max-width: 1024px) and (min-width: 768px) {
+    .masthead .masthead-subheading {
+      font-size: 1.8rem; /* Ajuste del tamaño de la fuente */
+    }
+    .masthead .masthead-heading {
+      font-size: 4rem;
+    }
+    .container {
+      margin-top: -80px; /* Ajuste del margen */
+    }
+  }
+
+  /* Para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .masthead .masthead-subheading {
+      font-size: 1.5rem;
+    }
+    .masthead .masthead-heading {
+      font-size: 2.5rem;
+    }
+    .container {
+      margin-top: -50px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .btn {
+      font-size: 1rem;
+      padding: 12px 24px;
+    }
+  }
+
+.masthead {
+  background: url('/static/main.jpg') no-repeat center center;
+  background-size: cover;
+  color: rgb(10, 10, 10);
+  padding: 150px 0;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.masthead .masthead-subheading {
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color:#FFFFFF;
+  margin-top: 70px;
+}
+
+.masthead .masthead-heading {
+  font-size: 60px;
+  font-weight: 700;
+  margin-top: 20px;
+  color:#FFFFFF;
+}
+
+.masthead .btn-primary {
+  background-color: #1E3A8A;
+  border-color: #172d68;
+  padding: 15px 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.masthead .btn-primary:hover {
+  background-color: #172d68;
+  border-color: #23262e;
+  transform: scale(1.1);
+}
+
+.container {
+  margin-top:50px;
+  padding-left: 15px;  /* Añadido para un poco de espacio a la izquierda */
+  padding-right: 15px; /* Añadido para un poco de espacio a la derecha */
+}
+
+/* Asegurar que el navbar está centrado */
+#mainNav {
+  background-color: #1E3A8A;
+  padding: 4%;  /* Añadido padding para que los elementos no estén pegados */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center; /* Centra los elementos de la lista */
+  width: 100%;
+}
+
+.navbar-nav .nav-item {
+  margin: 0 10px; /* Ajusta el espacio entre los elementos del menú */
+}
+
+/* Para que la imagen de fondo del masthead se vea mejor en dispositivos pequeños */
+@media (max-width: 768px) {
+  .masthead {
+    padding: 100px 0;
+    color:#FFFFFF;
+  }
+
+  .masthead .masthead-subheading {
+    color: #FFFFFF;
+    font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideIn 1.2s ease-out forwards;
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  }
+
+  .masthead .masthead-heading {
+    color:#FFFFFF;
+    margin-bottom: 20px;
+    text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideIn 1.2s ease-out forwards;
+    
+  }
+
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.tittle {
+  font-family: 'Arial', sans-serif;
+  font-size: 36px; 
+  font-weight: bold; 
+  color: #FFFFFF;
+  letter-spacing: 2px; 
+  text-decoration: none; 
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tittle:hover {
+  transform: scale(1.2); 
+  
+}
+
+@media (max-width: 768px) {
+  .tittle {
+    font-size: 28px;
+  }
+}
+
+.card {
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  display: flex; 
+  flex-direction: column; /* Asegura que el contenido se apile verticalmente */
+  height: 100%; /* Asegura que la tarjeta ocupe todo el espacio disponible */
+}
+
+.card-body {
+  background-color: #ffffff;
+  padding: 15px;
+  text-align: center;
+  flex-grow: 1; /* Hace que el contenido de la tarjeta ocupe el espacio restante */
+}
+
+.card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: contain; /* Recorta la imagen para que llene el espacio disponible sin distorsionarse */
+  height: 200px; /* Asegura que la imagen tenga una altura constante */
+  width: 100%;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+
+
+#moreText {
+  display: none;
+}
+
+.carousel-inner{
+  padding: 20px;
+}
+#footer{
+  background-color: #172d68;
+  color: #172d68;
+}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+/* Category Ads */
+
+#ads {
+    margin: 30px 0 30px 0;
+   
+}
+
+ .card-notify-badge {
+        position: absolute;
+        left: -10px;
+        top: -20px;
+        background:  #ac9a00;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px; 
+        color: #ffffff;
+        padding: 5px 10px;
+        font-size: 14px;
+
+    }
+
+ .card-notify-year {
+        position: absolute;
+        right: -10px;
+        top: -20px;
+        background: #ff0000;
+        border-radius: 50%;
+        text-align: center;
+        color: #fff;      
+        font-size: 14px;      
+        width: 50px;
+        height: 50px;    
+        padding: 15px 0 0 0;
+}
+
+
+ .card-detail-badge {      
+        background: #1E3A8A;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px;
+        color: #ffffff;
+        padding: 5px 10px;
+        font-size: 14px;        
+    }
+
+   
+
+ .card:hover {
+            background: #fff;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+ .card-image-overlay {
+        font-size: 20px;
+        
+    }
+
+
+ .card-image-overlay span {
+            display: inline-block;              
+        }
+
+
+ .ad-btn {
+        text-transform: uppercase;
+        width: 150px;
+        height: 40px;
+        border-radius: 80px;
+        font-size: 16px;
+        line-height: 35px;
+        text-align: center;
+        border: 3px solid #002792;
+        display: block;
+        text-decoration: none;
+        margin: 20px auto 1px auto;
+        color: #ffffff;
+        overflow: hidden;        
+        position: relative;
+        background-color: #1E3A8A;;
+    }
+
+ .ad-btn:hover {
+            background-color: #ffffff;
+            color: #1e1717;
+            border: 2px solid #1E3A8A;
+            background: transparent;
+            transition: all 0.3s ease;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+        }
+
+ .ad-title h5 {
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+    .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Estilo para cada item de la paginación */
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+/* Estilo para los enlaces de la paginación */
+.pagination .page-item .page-link {
+    padding: 10px 15px;
+    border-radius: 50%; /* Botones redondeados */
+    background-color: #ffffff; /* Color de fondo principal */
+    border: 1px solid #ffffff; /* Borde un poco más oscuro */
+    color: rgb(0, 0, 0); /* Texto blanco */
+    text-decoration: none; /* Quita el subrayado del enlace */
+    font-weight: bold; /* Resalta el texto */
+    font-size: 14px; /* Tamaño de texto */
+    transition: background-color 0.3s, border-color 0.3s; /* Transiciones suaves */
+}
+
+/* Estilo para los ítems activos */
+.pagination .active .page-link {
+    background-color: #ffffff; /* Color de fondo más oscuro para el activo */
+    border-color: #ff0000; /* Borde más oscuro */
+    color: rgb(0, 0, 0); /* Texto blanco */
+}
+
+/* Estilo para los ítems deshabilitados */
+.pagination .disabled .page-link {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    color: #6c757d; /* Texto gris */
+    border-color: #e9ecef; /* Borde gris claro */
+}
+
+/* Estilo para cuando pasamos el ratón sobre los elementos de la paginación */
+.pagination .page-item .page-link:hover {
+    background-color: #102868; /* Fondo más oscuro */
+    border-color: #162d6d; /* Borde más oscuro */
+    color: white; /* Texto blanco */
+}
+
+/* Estilo para los botones de "Anterior" y "Siguiente" */
+.pagination .page-item .page-link {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Estilo adicional si quieres que los enlaces no tengan subrayado */
+.pagination .page-link {
+    text-decoration: none;
+}
+
+/* Cambia el color del enlace cuando se pasa el ratón sobre los elementos */
+.pagination .page-item .page-link:hover {
+    background-color: #102868; 
+    color: white; /* Texto blanco */
+    border-color: #162d6d; /* Borde oscuro */
+}
+    .profile-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .profile-header {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .profile-table th, .profile-table td {
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        .btn-edit {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+        }
+
+        .table th {
+            width: 150px;
+        }
+  #errorAlert {
+        animation: fadeInAlert 1s ease-out;
+    }
+
+    @keyframes fadeInAlert {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+     #successAlert {
+        animation: fadeInAlert 1s ease-out;
+    }
+
+    @keyframes fadeInAlert {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+      .profile-container {
+        max-width: 600px;
+        margin: 50px auto;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 30px;
+    }
+
+    .profile-header {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 30px;
+        color:  #1E3A8A;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .profile-header i {
+        font-size: 2.5rem;
+    }
+
+    .profile-table th {
+        width: 40%;
+        background-color: #f8f9fa;
+        color:  #1E3A8A;
+    }
+
+    .profile-table td {
+        color: #1E3A8A;;
+
+    }
+
+    .btn-primary {
+        border-radius: 50px;
+        padding: 10px 30px;
+        font-size: 1rem;
+          background-color: #1E3A8A;
+        transition: 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: black;
+        color:white;
+    }
+  
+    .btn:hover {
+        transform: translateY(-2px); /* Da un pequeño movimiento hacia arriba */
+    }
+
+    .btn:hover:active {
+        transform: translateY(0); /* Vuelve a la posición original al hacer clic */
+    }
+
+    .btn:first-of-type:hover {
+        background-color: #164d88; /* Oscurece el fondo del botón "Editar Perfil" */
+        color: #f1f1f1; /* Cambia el color del texto */
+    }
+
+    .btn:last-of-type:hover {
+        border-color: #164d88; /* Oscurece el borde del botón "Volver" */
+        color: #164d88; /* Cambia el color del texto */
+    }
+</style>
+
+</head>
+<body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg py-4" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">
+        <img th:src="@{/images/tryyourcarlogo.png}" alt="Icono" style="width: 100px; height: auto; margin-right: 10px;">
+    </a>
+
+    <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+      <form th:action="@{/logout}" method="POST">
+        <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+      </form>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+      <ul class="navbar-nav me-auto text-uppercase py-1">
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Catálogo</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/miscita}">Reservas</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/valoraciones}">Valoraciones</a></li>
+        <li class="nav-item mx-4">
+    <a class="nav-link" th:href="@{/miperfil}">Mi perfil</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div id="alertaExito" th:if="${mensajeExito}" class="alert alert-success text-center">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    <span th:text="${mensajeExito}"></span>
+</div>
+
+<script>
+    setTimeout(() => {
+        const alerta = document.getElementById('alertaExito');
+        if (alerta) {
+            alerta.classList.add('fade');
+            setTimeout(() => alerta.remove(), 500); // Espera a que se desvanezca
+        }
+    }, 3000);
+</script>
+
+       <main class="flex-fill">
+ <div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">Gestion Citas de Prueba</h2>
+
+    
+   <form method="get" class="mb-4">
+    <div class="row justify-content-center g-3">
+
+        <!-- Filtro por fecha -->
+        <div class="col-md-3 col-sm-6">
+            <select name="rangoFecha" class="form-select" onchange="this.form.submit()">
+                <option th:value="'TODOS'" th:selected="${rangoFecha == 'TODOS'}">Todas las fechas</option>
+                <option th:value="'2DIAS'" th:selected="${rangoFecha == '2DIAS'}">Últimos 2 días</option>
+                <option th:value="'SEMANA'" th:selected="${rangoFecha == 'SEMANA'}">Última semana</option>
+                <option th:value="'MES'" th:selected="${rangoFecha == 'MES'}">Último mes</option>
+                <option th:value="'AÑO'" th:selected="${rangoFecha == 'AÑO'}">Último año</option>
+            </select>
+        </div>
+
+        <!-- Filtro por orden -->
+        <div class="col-md-3 col-sm-6">
+            <select name="orden" class="form-select" onchange="this.form.submit()">
+                <option th:value="'FECHA_ASC'" th:selected="${ordenSeleccionado == 'FECHA_ASC'}">Fecha ascendente</option>
+                <option th:value="'FECHA_DESC'" th:selected="${ordenSeleccionado == 'FECHA_DESC'}">Fecha descendente</option>
+              
+            </select>
+        </div>
+
+    </div>
+</form>
+
+
+    
+    <div class="row">
+        <div class="col-12" th:if="${#lists.isEmpty(citas)}">
+            <div class="alert alert-warning text-center">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                No se han encontrado citas pendientes.
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4" th:each="cita : ${citas}">
+            <div class="card shadow h-100">
+                <img th:src="@{${cita.vehiculo.foto}}" class="card-img-top" style="height: 220px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${cita.vehiculo.marca + ' ' + cita.vehiculo.modelo}"></h5>
+                    <p class="card-text">
+                        <i class="bi bi-calendar-event-fill me-2"></i>
+                        <strong>Fecha:</strong> 
+                        <span th:text="${#temporals.format(cita.fechahora, 'dd/MM/yyyy HH:mm')}"></span><br>
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                       <strong>Estado:</strong>
+
+
+<span>
+    <i th:classappend=" 
+        ${cita.tipo == ESTADO_COMPLETADA ? 'bi-check-circle-fill text-success' :
+        cita.tipo == ESTADO_PENDIENTE ? 'bi-circle-fill text-warning' :
+        cita.tipo == ESTADO_ACEPTADA ? 'bi-circle-fill text-success' :
+        cita.tipo == ESTADO_CANCELADA ? 'bi-circle-fill text-danger' :
+        cita.tipo == ESTADO_RECHAZADA ? 'bi-circle-fill text-danger opacity-75' : ''}"></i>
+    <span th:text="${cita.tipo}"></span>
+</span>
+<br>
+<i class="bi bi-person-fill me-2"></i>
+                       
+                       <strong>Cliente:</strong>
+<a th:href="@{'/cliente/' + ${cita.cliente.id}}" th:text="${cita.cliente.usuario.user}"></a>
+
+
+                    </p>
+<div th:if="${(cita.tipo == ESTADO_PENDIENTE or cita.tipo == ESTADO_ACEPTADA) 
+            and cita.fechahora > T(java.time.LocalDateTime).now()}">
+
+    <div class="d-flex justify-content-center gap-2 mt-2">
+        <!-- Botón Rechazar -->
+        <form th:action="@{/rechazarcita}" method="post">
+            <input type="hidden" th:name="id" th:value="${cita.id}">
+            <button type="submit" class="btn btn-sm"
+                style="background-color: #dc3545; color: white; border: none;"
+                onmouseover="this.style.backgroundColor='#a71d2a';"
+                onmouseout="this.style.backgroundColor='#dc3545';">
+                <i class="bi bi-x-circle me-1"></i> Rechazar 
+            </button>
+        </form>
+
+        <!-- Botón Aceptar -->
+        <form th:action="@{/aceptarcita}" method="post">
+            <input type="hidden" th:name="id" th:value="${cita.id}">
+            <button type="submit" class="btn btn-sm"
+                style="background-color: #164d88; color: white; border: none;"
+                onmouseover="this.style.backgroundColor='#164d88';"
+                onmouseout="this.style.backgroundColor='#164d88';">
+                <i class="bi bi-check-circle me-1"></i> Aceptar
+            </button>
+        </form>
+    </div>
+</div>
+
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+      
+      
+      
+      
+    </main>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<footer class="text-white py-4 mt-5" id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-md-6 mb-5 mb-lg-0">
+          <h5>Sobre Nosotros</h5>
+          <p>Somos una empresa líder en ofrecer pruebas de vehículos sin compromiso. Disfruta de la experiencia con TryYourCar.</p>
+        </div>
+        
+        <div class="col-lg-5 col-md-6 mb-2 mb-lg-0">
+          <h5>Contacto</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-map-marker-alt"></i> Calle Río Ñora, 33212 Gijón, Asturias, España</li>
+            <li><i class="fas fa-phone"></i> +34 123 456 789</li>
+            <li><i class="fas fa-envelope"></i> contacto@tryyourcar.com</li>
+          </ul>
+        </div>
+  
+        <div class="col-lg-2 col-md-12 mt-4">
+          <h5>Síguenos</h5>
+          <ul class="list-unstyled d-flex">
+            <li class="me-3">
+              <a href="#" class="text-white" target="_blank">
+                <i class="fab fa-facebook"></i>
+              </a>
+            </li>
+            <li class="me-3">
+              <a href="#" class="text-white" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="me-3">
+              <a href="#" class="text-white" target="_blank">
+                <i class="fab fa-instagram"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12 d-block d-sm-none text-center mt-3">
+          <p>&copy; 2025 TryYourCar. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
+

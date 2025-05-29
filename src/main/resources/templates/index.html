@@ -14,6 +14,66 @@ body {
   background-color: #ffffff;
   font-family: 'Arial', sans-serif;
 }
+ .dropdown-menu {
+    background-color: #1E3A8A;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    animation: fadeInDown 0.3s ease-out;
+    overflow: hidden;
+  }
+
+  .dropdown-menu .dropdown-item {
+    color: white;
+    padding: 12px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-menu .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+  }
+
+ .dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+  .nav-item.dropdown.show > .nav-link {
+    background-color: #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  /* Animación al desplegar */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
 .navbar-nav .nav-link {
   color: #FFFFFF;
@@ -390,8 +450,10 @@ body {
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg" id="mainNav">
-    <div class="container-fluid">
+  
+  <nav th:if="${rol == 'ROLE_ANONYMOUS'}" class="navbar navbar-expand-lg"  id="mainNav">
+     
+   <div class="container-fluid">
       <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
   
       <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
@@ -416,6 +478,119 @@ body {
       </div>
     </div>
   </nav>
+
+
+ <nav th:if="${rol == 'ROLE_ADMIN'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+             <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Personal
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+  <li><a class="dropdown-item" th:href="@{/listar}"><i class="fas fa-plus-circle"></i> Listado de personal</a></li>
+ <li><a class="dropdown-item" th:href="@{/anadirPersonal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarpersonal}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarpersonal}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+ 
+      <nav th:if="${rol == 'ROLE_PERSONAL'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+       
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+      
+<nav th:if="${rol == 'ROLE_CLIENTE'}" class="navbar navbar-expand-lg py-4"  id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">
+        <img th:src="@{/images/tryyourcarlogo.png}" alt="Icono" style="width: 100px; height: auto; margin-right: 10px;">
+    </a>
+
+    <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+      <form th:action="@{/logout}" method="POST">
+        <button type="submit" class="btn-custom login-btn">Cerrar Sesión</button>
+      </form>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+      <ul class="navbar-nav me-auto text-uppercase py-1">
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Catálogo</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/miscitas}">Citas</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/valoraciones}">Valoraciones</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/miperfil}">Mi perfil</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+
   
 <header class="masthead position-relative text-center text-white" style="height: 100vh; overflow: hidden;">
   
@@ -551,7 +726,11 @@ body {
           <div class="ad-title m-auto">
             <h5 th:text="${vehiculo.marca} + ' ' + ${vehiculo.modelo}"></h5>
           </div>
-                        <a class="ad-btn" th:href="@{/detalles/{id}(id=${vehiculo.id})}">Saber más</a>
+    <a class="ad-btn" 
+   th:if="${rol.equals('ROLE_CLIENTE') or rol.equals('ROLE_ANONYMOUS')}" 
+   th:href="@{/detalles/{id}(id=${vehiculo.id})}">
+   Saber más
+</a>
         </div>
       </div>
     </div>
@@ -629,7 +808,6 @@ body {
     </div>
   </div>
 </footer>
-
 
 
 

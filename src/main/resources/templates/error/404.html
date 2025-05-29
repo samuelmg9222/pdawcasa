@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Error 404 - Página no encontrada</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #1E3A8A;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .error-container {
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 72px;
+            margin: 0;
+        }
+
+        p {
+            font-size: 20px;
+            margin: 10px 0 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 16px;
+            color: white;
+            background-color: #1E3A8A;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #15317e;
+        }
+
+        .car-icon {
+            font-size: 80px;
+            margin-bottom: 10px;
+        }
+
+        .car-icon svg {
+            width: 80px;
+            height: 80px;
+            fill: #1E3A8A;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="car-icon">
+            <!-- Icono de coche SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M544 192h-16L456.5 56.5C447.1 39.8 429.4 32 411.5 32H228.5c-17.9 0-35.6 7.8-45 24.5L112 192H96c-53 0-96 43-96 96v112c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V384h448v16c0 13.3 10.7 24 24 24h16c13.3 0 24-10.7 24-24V288c0-53-43-96-96-96zM211.5 64h197.1l64 128H147.5l64-128zM96 320a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm384 32a32 32 0 1 1 64 0 32 32 0 1 1-64 0z"/></svg>
+        </div>
+        <h1>404</h1>
+        <p>La página que buscas no existe o ha sido movida.</p>
+        <a href="/" class="btn">Volver al inicio</a>
+    </div>
+</body>
+</html>

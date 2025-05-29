@@ -8,38 +8,43 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
-import pdaw.modelo.*;
+import pdaw.modelo.CitasDePrueba;
+import pdaw.modelo.Cliente;
+import pdaw.modelo.Estado;
+import pdaw.modelo.Evaluacion;
+import pdaw.modelo.TipoVehiculo;
+import pdaw.modelo.Usuario;
+import pdaw.modelo.Vehiculo;
 import pdaw.services.CitaDePruebaService;
 import pdaw.services.ClienteService;
 import pdaw.services.EvaluacionService;
 import pdaw.services.UsuarioService;
 import pdaw.services.VehiculoService;
-
-
 
 @Controller
 public class ClienteController {
@@ -51,10 +56,13 @@ public class ClienteController {
 	ClienteService servcliente;
 	@Autowired
 	UsuarioService servusuario;
+	
 	@Autowired
 	CitaDePruebaService servcita;
+
 	@Autowired
 	EvaluacionService servevaluacion;
+	
 	@GetMapping("/registro")
 	public String mostrarFormulario(Model model) {
 	    model.addAttribute("cliente", new Cliente());
@@ -112,7 +120,8 @@ public class ClienteController {
 	        cliente.setUsuario(usuario); 
 	        servcliente.insertarcliente(cliente);
 
-	        
+	       
+	       
 	        return "regexitoso";  
 	    } catch (Exception e) {
 	        e.printStackTrace();
@@ -352,12 +361,30 @@ model.addAttribute("citaId", cita.getId());
 		    public String verPerfil(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 		        String username = userDetails.getUsername();
 		        Usuario usuario = servusuario.findByUsername(username);
+		        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	    String rol = auth.getAuthorities().stream()
+	    	            .map(GrantedAuthority::getAuthority)
+	    	            .findFirst()
+	    	            .orElse("ROLE_ANONYMOUS");
+
+	    	    model.addAttribute("rol", rol);
 		        model.addAttribute("usuario", usuario);
 		        return "miperfil";
+		        
 		    }
 
 		    @GetMapping("/editarperfil")
 		    public String editarPerfil(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+		    
+
+		    	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		    	    String rol = auth.getAuthorities().stream()
+		    	            .map(GrantedAuthority::getAuthority)
+		    	            .findFirst()
+		    	            .orElse("ROLE_ANONYMOUS");
+
+		    	    model.addAttribute("rol", rol);
+		    	  
 		        String username = userDetails.getUsername();
 		        Usuario usuario = servusuario.findByUsername(username);
 		        model.addAttribute("usuario", usuario);
@@ -370,22 +397,28 @@ model.addAttribute("citaId", cita.getId());
 		                                 Model model) {
 		        String username = userDetails.getUsername();
 		        Usuario usuario = servusuario.findByUsername(username);
+		        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    	    String rol = auth.getAuthorities().stream()
+	    	            .map(GrantedAuthority::getAuthority)
+	    	            .findFirst()
+	    	            .orElse("ROLE_ANONYMOUS");
 
+	    	    model.addAttribute("rol", rol);
 		        String nombre = usuarioActualizado.getNombre().trim();
 		        String apellidos = usuarioActualizado.getApellidos().trim().replaceAll("\\s+", " "); // Reemplaza múltiples espacios por uno solo
 		        String correo = usuarioActualizado.getCorreo().trim();
-		        String nombreUsuario = usuarioActualizado.getUser().trim(); // Nuevo campo para el nombre de usuario
+		      
 
 		        // Validaciones previas (nombre, apellidos y correo)
 		        if (nombre.equalsIgnoreCase(usuario.getNombre()) &&
 		            apellidos.equalsIgnoreCase(usuario.getApellidos()) &&
-		            correo.equalsIgnoreCase(usuario.getCorreo()) &&
-		            nombreUsuario.equalsIgnoreCase(usuario.getUser())) {
+		            correo.equalsIgnoreCase(usuario.getCorreo()) 
+		            ) {
 		            model.addAttribute("mensajeError", "Debes cambiar al menos un campo para actualizar.");
 		            return "editarperfil";
 		        }
 
-		        if (nombre.isEmpty() && apellidos.isEmpty() && correo.isEmpty() && nombreUsuario.isEmpty()) {
+		        if (nombre.isEmpty() && apellidos.isEmpty() && correo.isEmpty() ) {
 		            model.addAttribute("mensajeError", "Todos los campos son obligatorios.");
 		            return "editarperfil";
 		        }
@@ -428,33 +461,14 @@ model.addAttribute("citaId", cita.getId());
 		        }
 
 		        // Validaciones para el nombre de usuario
-		        if (nombreUsuario.isEmpty()) {
-		            model.addAttribute("mensajeError", "El nombre de usuario no puede estar vacío.");
-		            return "editarperfil";
-		        }
-
-		        if (nombreUsuario.length() < 4 || nombreUsuario.length() > 20) {
-		            model.addAttribute("mensajeError", "El nombre de usuario debe tener entre 4 y 20 caracteres.");
-		            return "editarperfil";
-		        }
-
-		        if (!nombreUsuario.matches("^[a-zA-Z0-9_]+$")) {
-		            model.addAttribute("mensajeError", "El nombre de usuario solo puede contener letras, números y guiones bajos.");
-		            return "editarperfil";
-		        }
-
-		        if (!nombreUsuario.equalsIgnoreCase(usuario.getUser())) {
-		            if (servusuario.exiteUser(nombreUsuario) == 1) {
-		                model.addAttribute("mensajeError", "El nombre de usuario ya está registrado.");
-		                return "editarperfil";
-		            }
-		        }
+		      
+		        
 
 		        // Actualización del usuario
 		        usuario.setNombre(nombre.toLowerCase());
 		        usuario.setApellidos(apellidos.toLowerCase());
 		        usuario.setCorreo(correo.toLowerCase());
-		        usuario.setUser(nombreUsuario.toLowerCase()); // Actualizando el nombre de usuario
+		       
 
 		        servusuario.insertarUser(usuario);
 

@@ -452,7 +452,8 @@ body {
 </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg" id="mainNav">
+     <nav class="navbar navbar-expand-lg" id="mainNav" th:if="${authentication == null or authentication.principal == null}">
+   
         <div class="container-fluid">
           <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
       
@@ -478,6 +479,37 @@ body {
         </div>
       </nav>
     
+    
+  <nav class="navbar navbar-expand-lg py-4" id="mainNav" th:if="${authentication != null}">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">
+        <img th:src="@{/images/tryyourcarlogo.png}" alt="Icono" style="width: 100px; height: auto; margin-right: 10px;">
+    </a>
+
+    <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+      <form th:action="@{/logout}" method="POST">
+        <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+      </form>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+      <ul class="navbar-nav me-auto text-uppercase py-1">
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Catálogo</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Reservas</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/valoraciones}">Valoraciones</a></li>
+        <li class="nav-item mx-4">
+    <a class="nav-link" th:href="@{/miperfil}">Mi perfil</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+  
       <div class="container rounded shadow-sm">
         <h1 class="text-center mb-4 " th:text="'Detalles de ' + ${vehiculo.marca} + ' ' + ${vehiculo.modelo}"></h1>
      

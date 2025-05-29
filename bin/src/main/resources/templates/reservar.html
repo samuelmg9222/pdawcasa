@@ -449,87 +449,144 @@ body {
     color: white; /* Texto blanco */
     border-color: #162d6d; /* Borde oscuro */
 }
+  #errorAlert {
+        animation: fadeInAlert 1s ease-out;
+    }
+
+    @keyframes fadeInAlert {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+     #successAlert {
+        animation: fadeInAlert 1s ease-out;
+    }
+
+    @keyframes fadeInAlert {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg" id="mainNav">
-        <div class="container-fluid">
-          <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+<nav class="navbar navbar-expand-lg py-4" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">
+        <img th:src="@{/images/tryyourcarlogo.png}" alt="Icono" style="width: 100px; height: auto; margin-right: 10px;">
+    </a>
+
+    <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+      <form th:action="@{/logout}" method="POST">
+        <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+      </form>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+      <ul class="navbar-nav me-auto text-uppercase py-1">
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Catálogo</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Reservas</a></li>
+        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/valoraciones}">Valoraciones</a></li>
+        <li class="nav-item mx-4">
+    <a class="nav-link" th:href="@{/miperfil}">Mi perfil</a>
+</li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
       
-          <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
-             <form th:action="@{/login}" method="GET">
-        <button type="submit" class="btn-custom login-btn">Login</button>
-    </form>
-      <form th:action="@{/registro}" method="GET">
-        <button type="submit" class="btn-custom reg-btn">Registro</button>
-    </form>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
-              <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-          </div>
       
-          <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
-            <ul class="navbar-nav me-auto text-uppercase py-1">
-              <li class="nav-item mx-4"><a class="nav-link" th:href="@{/}">Inicio</a></li>
-              <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Catálogo</a></li>
-              <li class="nav-item mx-4"><a class="nav-link" href="#footer">Contacto</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    
-      <div class="container rounded shadow-sm">
-        <h1 class="text-center mb-4 " th:text="'Reserva de ' + ${vehiculo.marca} + ' ' + ${vehiculo.modelo}"></h1>
-     
-        <div class="container mt-5">
-            <h2 class="text-center mb-4">Formulario de Reserva</h2>
-            
-            <form>
-              <!-- Nombre Completo -->
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre Completo</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre completo" required>
-              </div>
-          
-              <!-- Correo Electrónico -->
-              <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" required>
-              </div>
-          
-              <!-- Teléfono -->
-              <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su número de teléfono" required>
-              </div>
-          
-              <!-- Fecha de Reserva -->
-              <div class="mb-3">
-                <label for="fechaReserva" class="form-label">Fecha de Reserva</label>
-                <input type="date" class="form-control" id="fechaReserva" required>
-              </div>
-          
-              <!-- Vehículo Seleccionado -->
-              <div class="mb-3">
-                <label for="vehiculo" class="form-label">Vehículo</label>
-                <select class="form-select" id="vehiculo" required>
-                  <option selected disabled>Seleccione un vehículo</option>
-                  <option value="vehiculo1">Coche 1</option>
-                  <option value="vehiculo2">Coche 2</option>
-                  <option value="vehiculo3">Coche 3</option>
-                  <!-- Aquí agregas los vehículos disponibles dinámicamente -->
-                </select>
-              </div>
-          
-              <!-- Botón de Enviar -->
-              <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary">Reservar</button>
-              </div>
-            </form>
-          </div>
- 
+    <div class="alert alert-danger text-center fade show" role="alert" th:if="${error != null}" id="errorAlert">
+    <strong>Error:</strong> <span th:text="${error}"></span>
+</div>
+
+<div class="alert alert-success text-center fade show" role="alert" th:if="${success != null}" id="successAlert">
+    <strong>¡Éxito!</strong> <span th:text="${success}"></span>
+</div>
+    <div class="container rounded shadow-sm mt-5">
+    <h1 class="text-center mb-4" th:text="'Reserva de ' + ${vehiculo.marca} + ' ' + ${vehiculo.modelo}"></h1>
+
+    <div class="row">
         
+        <div class="col-lg-6 col-md-12 mb-4">
+           <div class="col-12 mb-4 d-flex justify-content-center">
+                <img th:src="@{${vehiculo.foto}}" alt="Foto del coche" class="img-fluid rounded shadow" style="max-height: 400px; object-fit: cover;">
+            </div>
+       
+        </div>
+
+        <!-- Columna de formulario de reserva (Izquierda) -->
+        <div class="col-lg-6 col-md-12">
+           
+            <ul class="list-unstyled">
+                <li class="mb-3">
+                      <i class="fas fa-info-circle me-2"></i> 
+                      <strong>Estado:</strong> 
+                      <span th:if="${vehiculo.disponible}" class="text-success">Disponible</span>
+                      <span th:unless="${vehiculo.disponible}" class="text-danger">Ya reservado</span>
+                    </li>
+                <li class="mb-3">
+                    <i class="fas fa-calendar-alt fa-lg me-2"></i>
+                    <strong>Año:</strong> <span th:text="${vehiculo.añofabricacion}"></span>
+                </li>
+                <li class="mb-3">
+                    <i class="fas fa-car fa-lg me-2"></i>
+                    <strong>Marca y modelo:</strong> <span th:text="${vehiculo.marca}+${vehiculo.modelo}"></span>
+                </li>
+              
+                <li class="mb-3">
+                    <i class="fas fa-tachometer-alt fa-lg me-2"></i>
+                    <strong>Kilometraje:</strong> <span th:text="${vehiculo.kilometraje}"></span> Kms
+                </li>
+                <li class="mb-3">
+                    <i class="fas fa-tag fa-lg me-2"></i>
+                    <strong>Precio:</strong> <span th:text="${#numbers.formatDecimal(vehiculo.precio, 0, 0)} + ' €'"></span>
+                </li>
+               
+            </ul>
+            
+            
+            
+            
+            
+            
+     <form method="POST" th:action="@{/reservar/{id}(id=${vehiculo.id})}">
+    <div class="mb-3">
+        <label for="fechaReserva" class="form-label">Fecha de Reserva</label>
+        <input type="date" class="form-control" id="fechaReserva" name="fechaReserva" required>
+    </div>
     
+    <div class="mb-3">
+        <label for="horaReserva" class="form-label">Hora de Reserva</label>
+        <input type="time" class="form-control" id="horaReserva" name="horaReserva" required>
+    </div>
+    
+   <div class="d-flex justify-content-center">
+    <button type="submit" class="ad-btn mb-2"  th:disabled="${vehiculo.disponible == false}">Reservar</button>
+</div>
+</form>
+
+        </div>
+    </div>
+</div>
+        
+  
+  
    
     
 <footer class="text-white py-4 mt-5" id="footer">
@@ -578,6 +635,7 @@ body {
       </div>
     </div>
   </footer>
+
 </body>
 </html>
 

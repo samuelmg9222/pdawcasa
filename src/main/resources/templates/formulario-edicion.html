@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TryYourCar</title>
+  
+  <!-- CSS Externo -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+   .navbar-nav .nav-link {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  transform: scale(1.1); 
+  color: #c7ccd6e1;
+}
+
+.navbar-toggler {
+  color: #f8f8f8;
+
+}
+.login-btn {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+.login-btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: white;
+}
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+  }
+.btn-custom {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+ #mainNav {
+  background-color: #1E3A8A;
+  padding: 4%;  /* Añadido padding para que los elementos no estén pegados */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center; /* Centra los elementos de la lista */
+  width: 100%;
+}
+
+.navbar-nav .nav-item {
+  margin: 0 10px; /* Ajusta el espacio entre los elementos del menú */
+}
+
+   
+
+
+    footer {
+      background-color: #172d68;
+      color: #ffffff;
+      padding: 40px 0;
+    }
+    .btn-login {
+      background: #0043a7; /* Color de fondo verde */
+    color: white; /* Texto blanco */
+ 
+}
+
+.btn-login:hover {
+  background: #000000; 
+  color: #FFFFFF;
+}
+   .dropdown-menu {
+    background-color: #1E3A8A;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    animation: fadeInDown 0.3s ease-out;
+    overflow: hidden;
+  }
+
+  .dropdown-menu .dropdown-item {
+    color: white;
+    padding: 12px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-menu .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+  }
+
+ .dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+  .nav-item.dropdown.show > .nav-link {
+    background-color: #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+     .dropdown-menu {
+    background-color: #1E3A8A;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    animation: fadeInDown 0.3s ease-out;
+    overflow: hidden;
+  }
+
+  .dropdown-menu .dropdown-item {
+    color: white;
+    padding: 12px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-menu .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+  }
+
+ .dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+  .nav-item.dropdown.show > .nav-link {
+    background-color: #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  /* Animación al desplegar */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+    
+ 
+  /* Animación al desplegar */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  
+ 
+   .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-primary {
+    background-color: #1E3A8A;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0c2e6a;
+  }
+  
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+.tittle {
+  font-family: 'Arial', sans-serif;
+  font-size: 36px; 
+  font-weight: bold; 
+  color: #FFFFFF;
+  letter-spacing: 2px; 
+  text-decoration: none; 
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tittle:hover {
+  transform: scale(1.2); 
+  
+}
+
+@media (max-width: 768px) {
+  .tittle {
+    font-size: 28px;
+  }
+}
+
+.card {
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  display: flex; 
+  flex-direction: column; /* Asegura que el contenido se apile verticalmente */
+  height: 100%; /* Asegura que la tarjeta ocupe todo el espacio disponible */
+}
+
+.card-body {
+  background-color: #ffffff;
+  padding: 15px;
+  text-align: center;
+  flex-grow: 1; /* Hace que el contenido de la tarjeta ocupe el espacio restante */
+}
+
+.card-img-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: contain; /* Recorta la imagen para que llene el espacio disponible sin distorsionarse */
+  height: 200px; /* Asegura que la imagen tenga una altura constante */
+  width: 100%;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #333;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+
+
+#moreText {
+  display: none;
+}
+
+.carousel-inner{
+  padding: 20px;
+}
+#footer{
+  background-color: #172d68;
+  color: #172d68;
+}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+/* Category Ads */
+
+#ads {
+    margin: 30px 0 30px 0;
+   
+}
+
+ .card-notify-badge {
+        position: absolute;
+        left: -10px;
+        top: -20px;
+        background:  #ac9a00;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px; 
+        color: #ffffff;
+        padding: 5px 10px;
+        font-size: 14px;
+
+    }
+
+ .card-notify-year {
+        position: absolute;
+        right: -10px;
+        top: -20px;
+        background: #ff0000;
+        border-radius: 50%;
+        text-align: center;
+        color: #fff;      
+        font-size: 14px;      
+        width: 50px;
+        height: 50px;    
+        padding: 15px 0 0 0;
+}
+
+
+ .card-detail-badge {      
+        background: #1E3A8A;
+        text-align: center;
+        border-radius: 30px 30px 30px 30px;
+        color: #ffffff;
+        padding: 5px 10px;
+        font-size: 14px;        
+    }
+
+   
+
+ .card:hover {
+            background: #fff;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+ .card-image-overlay {
+        font-size: 20px;
+        
+    }
+
+
+ .card-image-overlay span {
+            display: inline-block;              
+        }
+
+
+ .ad-btn {
+        text-transform: uppercase;
+        width: 150px;
+        height: 40px;
+        border-radius: 80px;
+        font-size: 16px;
+        line-height: 35px;
+        text-align: center;
+        border: 3px solid #002792;
+        display: block;
+        text-decoration: none;
+        margin: 20px auto 1px auto;
+        color: #ffffff;
+        overflow: hidden;        
+        position: relative;
+        background-color: #1E3A8A;;
+    }
+
+ .ad-btn:hover {
+            background-color: #ffffff;
+            color: #1e1717;
+            border: 2px solid #1E3A8A;
+            background: transparent;
+            transition: all 0.3s ease;
+            box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+        }
+
+ .ad-title h5 {
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+    .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* Estilo para cada item de la paginación */
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+/* Estilo para los enlaces de la paginación */
+.pagination .page-item .page-link {
+    padding: 10px 15px;
+    border-radius: 50%; /* Botones redondeados */
+    background-color: #ffffff; /* Color de fondo principal */
+    border: 1px solid #ffffff; /* Borde un poco más oscuro */
+    color: rgb(0, 0, 0); /* Texto blanco */
+    text-decoration: none; /* Quita el subrayado del enlace */
+    font-weight: bold; /* Resalta el texto */
+    font-size: 14px; /* Tamaño de texto */
+    transition: background-color 0.3s, border-color 0.3s; /* Transiciones suaves */
+}
+
+/* Estilo para los ítems activos */
+.pagination .active .page-link {
+    background-color: #ffffff; /* Color de fondo más oscuro para el activo */
+    border-color: #ff0000; /* Borde más oscuro */
+    color: rgb(0, 0, 0); /* Texto blanco */
+}
+
+/* Estilo para los ítems deshabilitados */
+.pagination .disabled .page-link {
+    background-color: #f8f9fa; /* Fondo gris claro */
+    color: #6c757d; /* Texto gris */
+    border-color: #e9ecef; /* Borde gris claro */
+}
+
+/* Estilo para cuando pasamos el ratón sobre los elementos de la paginación */
+.pagination .page-item .page-link:hover {
+    background-color: #102868; /* Fondo más oscuro */
+    border-color: #162d6d; /* Borde más oscuro */
+    color: white; /* Texto blanco */
+}
+
+/* Estilo para los botones de "Anterior" y "Siguiente" */
+.pagination .page-item .page-link {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Estilo adicional si quieres que los enlaces no tengan subrayado */
+.pagination .page-link {
+
+    text-decoration: none;
+}
+
+/* Cambia el color del enlace cuando se pasa el ratón sobre los elementos */
+.pagination .page-item .page-link:hover {
+    background-color: #102868; /* Un toque más oscuro */
+    color: white; /* Texto blanco */
+    border-color: #162d6d; /* Borde oscuro */
+}
+    .form-label {
+  color: black;
+}
+    
+</style>
+</head>
+
+<body>
+
+    <nav th:if="${rol == 'ROLE_ADMIN'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+             <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Personal
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+  <li><a class="dropdown-item" th:href="@{/listar}"><i class="fas fa-plus-circle"></i> Listado de personal</a></li>
+ <li><a class="dropdown-item" th:href="@{/anadirPersonal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarpersonal}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarpersonal}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+ 
+      <nav th:if="${rol == 'ROLE_PERSONAL'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+       
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  
+  
+  
+  
+  
+  
+<div class="container mt-5 mb-5">
+<h2 class="text-center mb-4 text-dark">Editar Usuario</h2><!-- Mostrar errores si existen -->
+    <div th:if="${errores != null && !errores.isEmpty()}" class="alert alert-danger">
+        <ul>
+            <li th:each="error : ${errores}" th:text="${error}"></li>
+        </ul>
+    </div>
+
+    <!-- Formulario de edición -->
+    <form th:action="@{'/editarpersonalact/' + ${usuario.id}}" th:object="${usuario}" method="post" class="needs-validation" novalidate>
+    
+    <div class="mb-3">
+        <label class="form-label">Usuario</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person"></i></span>
+            <input type="text" th:field="*{user}" class="form-control" required pattern="^[a-zA-Z0-9]{4,20}">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
+            <input type="text" th:field="*{nombre}" class="form-control" required pattern="^[a-zA-ZÁÉÍÓÚáéíóúñÑ\\s]{2,30}">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Apellidos</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-people"></i></span>
+            <input type="text" th:field="*{apellidos}" class="form-control" required pattern="^[a-zA-ZÁÉÍÓÚáéíóúñÑ\\s]{2,50}">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Correo Electrónico</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <input type="email" th:field="*{correo}" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Fecha de Nacimiento</label>
+        <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+            <input type="date" th:field="*{fechanac}" class="form-control" required>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="ad-btn">
+            <i class="bi bi-save"></i> Guardar Cambios
+        </button>
+    </div>
+
+</form>
+
+</div>
+
+        <footer>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-5 mb-4">
+                <h5>Sobre Nosotros</h5>
+                <p>Somos una empresa líder en ofrecer pruebas de vehículos sin compromiso. Disfruta de la experiencia con TryYourCar.</p>
+              </div>
+      
+              <div class="col-lg-5 mb-4">
+                <h5>Contacto</h5>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-map-marker-alt me-2"></i>Calle Río Ñora, 33212 Gijón, Asturias</li>
+                  <li><i class="fas fa-phone me-2"></i>+34 123 456 789</li>
+                  <li><i class="fas fa-envelope me-2"></i>contacto@tryyourcar.com</li>
+                </ul>
+              </div>
+      
+              <div class="col-lg-2">
+                <h5>Síguenos</h5>
+                <div class="d-flex">
+                  <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <p>&copy; 2025 TryYourCar. Todos los derechos reservados.</p>
+            </div>
+          </div>
+        </footer>
+      
+
+
+           
+
+
+<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            const forms = document.getElementsByClassName('needs-validation');
+            Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

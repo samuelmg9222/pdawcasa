@@ -4,13 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TryYourCar</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" rel="stylesheet">
 <link href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
- 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
   <style>
    .btn-cancelar {
         background-color: #0d6efd; /* azul bootstrap */
@@ -32,7 +30,68 @@ body {
   text-transform: uppercase;
   transition: color 0.3s ease;
 }
+ .dropdown-menu {
+    background-color: #1E3A8A;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    animation: fadeInDown 0.3s ease-out;
+    overflow: hidden;
+  }
 
+  .dropdown-menu .dropdown-item {
+    color: white;
+    padding: 12px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-menu .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+  }
+
+ .dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+  .nav-item.dropdown.show > .nav-link {
+    background-color: #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  /* Animación al desplegar */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  
 .navbar-nav .nav-link:hover {
   transform: scale(1.1); 
   color: #c7ccd6e1;
@@ -584,34 +643,88 @@ body {
 
 </head>
 <body class="d-flex flex-column min-vh-100">
-<nav class="navbar navbar-expand-lg py-4" id="mainNav">
-  <div class="container-fluid">
-    <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">
-        <img th:src="@{/images/tryyourcarlogo.png}" alt="Icono" style="width: 100px; height: auto; margin-right: 10px;">
-    </a>
-
-    <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
-      <form th:action="@{/logout}" method="POST">
-        <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
-      </form>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
-        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-      </button>
-    </div>
-
-    <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
-      <ul class="navbar-nav me-auto text-uppercase py-1">
-        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/vertodos}">Catálogo</a></li>
-        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/miscita}">Reservas</a></li>
-        <li class="nav-item mx-4"><a class="nav-link" th:href="@{/valoraciones}">Valoraciones</a></li>
-        <li class="nav-item mx-4">
-    <a class="nav-link" th:href="@{/miperfil}">Mi perfil</a>
+      <nav th:if="${rol == 'ROLE_ADMIN'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
 </li>
-      </ul>
+             <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Personal
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+  <li><a class="dropdown-item" th:href="@{/listar}"><i class="fas fa-plus-circle"></i> Listado de personal</a></li>
+ <li><a class="dropdown-item" th:href="@{/anadirPersonal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarpersonal}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarpersonal}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+ 
+ 
+      <nav th:if="${rol == 'ROLE_PERSONAL'}" class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="POST">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Todos</a></li>
+ <li><a class="dropdown-item" th:href="@{/personal}"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" th:href="@{/eliminarvehiculos}"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" th:href="@{/editarvehiculos}"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+       
+      
+          <li class="nav-item"><a class="nav-link" th:href="@{/gestiondecitas}">Gestión de Citas</a></li>
+              <li class="nav-item"><a class="nav-link" th:href="@{/editarperfil}">Editar perfil</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 
 
@@ -696,11 +809,10 @@ body {
 <br>
 <i class="bi bi-person-fill me-2"></i>
                        
-                       <strong>Cliente:</strong>
-<a th:href="@{'/cliente/' + ${cita.cliente.id}}" th:text="${cita.cliente.usuario.user}"></a>
+              <span><strong>Cliente:</strong> <span th:text="${cita.cliente.usuario.user}"></span></span>
 
 
-                    </p>
+                   
 <div th:if="${(cita.tipo == ESTADO_PENDIENTE or cita.tipo == ESTADO_ACEPTADA) 
             and cita.fechahora > T(java.time.LocalDateTime).now()}">
 
@@ -709,7 +821,7 @@ body {
         <form th:action="@{/rechazarcita}" method="post">
             <input type="hidden" th:name="id" th:value="${cita.id}">
             <button type="submit" class="btn btn-sm"
-                style="background-color: #dc3545; color: white; border: none;"
+                style="background-color: rgb(255, 0, 0); color: white; border: none;"
                 onmouseover="this.style.backgroundColor='#a71d2a';"
                 onmouseout="this.style.backgroundColor='#dc3545';">
                 <i class="bi bi-x-circle me-1"></i> Rechazar 
@@ -738,8 +850,9 @@ body {
 
   
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+
+
       
       
       
@@ -810,8 +923,7 @@ body {
       </div>
     </div>
   </footer>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

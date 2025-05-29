@@ -127,6 +127,7 @@ public class ClienteService {
 	    return 1; 
 	}
 	public void insertarcliente(Cliente cliente) {
+		
 	clienterepos.saveAndFlush(cliente);
 		
 	}

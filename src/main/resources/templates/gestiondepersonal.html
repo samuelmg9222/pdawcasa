@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TryYourCar</title>
+  
+  <!-- CSS Externo -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css" rel="stylesheet">
+  <link href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: #ffffff;
+      font-family: 'Arial', sans-serif;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+   .navbar-nav .nav-link {
+  color: #FFFFFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  transform: scale(1.1); 
+  color: #c7ccd6e1;
+}
+
+.navbar-toggler {
+  color: #f8f8f8;
+
+}
+.login-btn {
+  background-color: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+.login-btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: white;
+}
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+  }
+.btn-custom {
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+}
+
+ #mainNav {
+  background-color: #1E3A8A;
+  padding: 4%;  /* Añadido padding para que los elementos no estén pegados */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center; /* Centra los elementos de la lista */
+  width: 100%;
+}
+
+.navbar-nav .nav-item {
+  margin: 0 10px; /* Ajusta el espacio entre los elementos del menú */
+}
+
+   
+
+
+    footer {
+      background-color: #172d68;
+      color: #ffffff;
+      padding: 40px 0;
+    }
+    .btn-login {
+      background: #0043a7; /* Color de fondo verde */
+    color: white; /* Texto blanco */
+ 
+}
+
+.btn-login:hover {
+  background: #000000; 
+  color: #FFFFFF;
+}
+   .dropdown-menu {
+    background-color: #1E3A8A;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    animation: fadeInDown 0.3s ease-out;
+    overflow: hidden;
+  }
+
+  .dropdown-menu .dropdown-item {
+    color: white;
+    padding: 12px 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown-menu .dropdown-item i {
+    width: 20px;
+    text-align: center;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+  }
+
+ .dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #60a5fa; /* Azul cielo */
+  color: #fff;
+  box-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
+  padding-left: 28px;
+  border-radius: 6px;
+}
+
+  .nav-item.dropdown.show > .nav-link {
+    background-color: #e2e8f0 !important;
+    color: #1e293b !important;
+    border-radius: 8px;
+    font-weight: bold;
+  }
+
+  /* Animación al desplegar */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  
+ 
+   .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-primary {
+    background-color: #1E3A8A;
+    border: none;
+    transition: background-color 0.3s ease;
+    padding: 20px;
+  }
+
+  .btn-primary:hover {
+    background-color: #0c2e6a;
+  }
+</style>
+</head>
+
+<body>
+
+   <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold fs-4" href="#mainNav" style="color:white;">TryYourCar</a>
+  
+      <div class="d-flex align-items-center gap-2 order-lg-2 ms-auto">
+         <form th:action="@{/logout}" method="GET">
+    <button type="submit" class="btn-custom login-btn">Cerrar Sesion</button>
+</form>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="border: none;">
+          <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+      </div>
+  
+      <div class="collapse navbar-collapse order-lg-1" id="navbarResponsive">
+        <ul class="navbar-nav me-auto text-uppercase py-2">
+         <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Vehículos
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" th:href="@{/vertodos}"><i class="fas fa-plus-circle"></i> Ver Detalles</a></li>
+ <li><a class="dropdown-item" href="/vehiculos/anadir"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" href="/vehiculos/eliminar"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" href="/vehiculos/editar"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+             <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"  id="vehiculosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Gestión de Personal
+  </a>
+  <ul class="dropdown-menu" aria-labelledby="vehiculosDropdown">
+  <li><a class="dropdown-item" href="/vehiculos/anadir"><i class="fas fa-plus-circle"></i> Ver Detalles</a></li>
+ <li><a class="dropdown-item" href="/vehiculos/anadir"><i class="fas fa-plus-circle"></i> Añadir</a></li>
+    <li><a class="dropdown-item" href="/vehiculos/eliminar"><i class="fas fa-trash-alt"></i> Eliminar</a></li>
+    <li><a class="dropdown-item" href="/vehiculos/editar"><i class="fas fa-edit"></i> Editar</a></li>
+  </ul>
+</li>
+          <li class="nav-item"><a class="nav-link" href="#footer">Estadisticas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#footer">Citas</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ 
+<div class="container my-5">
+  <div class="row text-center">
+
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="card shadow-lg rounded border-0">
+        <img th:src="@{/images/ver.jpg}" class="card-img-top" alt="Personal" style="object-fit: cover; height: 550px;">
+        <div class="card-body">
+          <h5 class="card-title">Ver vehiculos</h5>
+          <p class="card-text">Podras ver todos los vehiculos del concesionario filtrando por lo que desees.</p>
+          <a th:href="@{/vertodos}" class="btn btn-primary d-flex justify-content-between align-items-center w-100">
+            <span>Ver Detalles</span> <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+
+<div class="col-lg-6 col-md-6 mb-4">
+      <div class="card shadow-lg rounded border-0">
+        <img th:src="@{/images/añadir.jpg}" class="card-img-top" alt="Personal" style="object-fit: cover; height: 550px;">
+        <div class="card-body">
+          <h5 class="card-title">Añadir vehiculos</h5>
+          <p class="card-text">Esta pagina te va a permitir añadir vehiculos nuevos al sitio.</p>
+          <a href="/personal" class="btn btn-primary d-flex justify-content-between align-items-center w-100">
+            <span>Ver Detalles</span> <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Card for Estadísticas -->
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="card shadow-lg rounded border-0">
+        <img th:src="@{/images/eliminar.jpg}" class="card-img-top" alt="Estadísticas" style="object-fit: cover; height: 550px;">
+        <div class="card-body">
+          <h5 class="card-title">Eliminar</h5>
+          <p class="card-text">Podras eliminar vehiculos que ya no pertenezcan al concesionario.</p>
+          <a th:href="@{/eliminarvehiculos}" class="btn btn-primary d-flex justify-content-between align-items-center w-100">
+            <span>Ver Detalles</span> <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="col-lg-6 col-md-6 mb-4">
+      <div class="card shadow-lg rounded border-0">
+        <img th:src="@{/images/editar.jpg}" class="card-img-top" alt="Citas" style="object-fit: cover; height: 550px;">
+        <div class="card-body">
+          <h5 class="card-title">Editar</h5>
+          <p class="card-text">Podras editar datos de los vehiculos del concesionairo.</p>
+          <a href="/citas" class="btn btn-primary d-flex justify-content-between align-items-center w-100">
+            <span>Ver Detalles</span> <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+   
+    
+    
+    
+  </div>
+</div>
+       
+   
+    
+    
+    
+  </div>
+</div>
+
+  
+
+          
+          
+          
+          
+          
+          
+          
+          
+          
+
+        <footer>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-5 mb-4">
+                <h5>Sobre Nosotros</h5>
+                <p>Somos una empresa líder en ofrecer pruebas de vehículos sin compromiso. Disfruta de la experiencia con TryYourCar.</p>
+              </div>
+      
+              <div class="col-lg-5 mb-4">
+                <h5>Contacto</h5>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-map-marker-alt me-2"></i>Calle Río Ñora, 33212 Gijón, Asturias</li>
+                  <li><i class="fas fa-phone me-2"></i>+34 123 456 789</li>
+                  <li><i class="fas fa-envelope me-2"></i>contacto@tryyourcar.com</li>
+                </ul>
+              </div>
+      
+              <div class="col-lg-2">
+                <h5>Síguenos</h5>
+                <div class="d-flex">
+                  <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+                  <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-4">
+              <p>&copy; 2025 TryYourCar. Todos los derechos reservados.</p>
+            </div>
+          </div>
+        </footer>
+      
+     <!-- Bootstrap JS (solo una vez, versión más reciente) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+      </body>
+      </html>           

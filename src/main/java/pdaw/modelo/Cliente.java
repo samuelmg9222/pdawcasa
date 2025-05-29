@@ -41,15 +41,16 @@ public class Cliente implements Serializable{
     
     @Column(name = "dni")
     private String dni;
+    
 	@ManyToOne
-	@JoinColumn(name="idvehiculo")
+	@JoinColumn
 	private Vehiculo vehiculo;
-    @OneToMany(cascade=CascadeType.ALL)
-  	@JoinColumn(name="idcitadeprueba")
-  	private List<CitasDePrueba> citasdeprueba=new LinkedList<CitasDePrueba>();
-    @OneToMany(cascade=CascadeType.ALL)
-  	@JoinColumn(name="idcitadeprueba")
-  	private List<Evaluacion> evaluaciones=new LinkedList<Evaluacion>();
+    
+	 @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<CitasDePrueba> citasdeprueba=new LinkedList<CitasDePrueba>();
+    
+	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
+	private List<Evaluacion> evaluaciones=new LinkedList<Evaluacion>();
     @OneToOne
     @JoinColumn(name = "idusuario")  
     private Usuario usuario;
