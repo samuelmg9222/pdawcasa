@@ -214,7 +214,7 @@ public class AdminController {
 
 @GetMapping("/editarpersonal")
 public String editarpersonal(@RequestParam(defaultValue = "0") int page,
-                             @RequestParam(defaultValue = "10") int size,
+                              @RequestParam(defaultValue = "122222222") int size,
                              @RequestParam(defaultValue = "id") String sortBy,
                              @RequestParam(defaultValue = "asc") String order,
                              @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desde,
@@ -259,7 +259,7 @@ public String editarpersonal(@RequestParam(defaultValue = "0") int page,
 
 	@GetMapping("/eliminarpersonal")
 	public String eliminarpersonal(@RequestParam(defaultValue = "0") int page,
-	                               @RequestParam(defaultValue = "10") int size,
+	                                @RequestParam(defaultValue = "122222222") int size,
 	                               @RequestParam(defaultValue = "id") String sortBy,
 	                               @RequestParam(defaultValue = "asc") String order,
 	                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desde,
@@ -325,7 +325,7 @@ public String editarpersonal(@RequestParam(defaultValue = "0") int page,
 	
 	@GetMapping("/listar")
 	public String listarPersonal(@RequestParam(defaultValue = "0") int page,
-	                             @RequestParam(defaultValue = "10") int size,
+	                             @RequestParam(defaultValue = "122222222") int size,
 	                             @RequestParam(defaultValue = "id") String sortBy,
 	                             @RequestParam(defaultValue = "asc") String order,
 	                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desde,
@@ -376,7 +376,7 @@ public String editarpersonal(@RequestParam(defaultValue = "0") int page,
 	
 	@GetMapping("/listarclientes")
 	public String listarclientes(@RequestParam(defaultValue = "0") int page,
-	                             @RequestParam(defaultValue = "10") int size,
+	                              @RequestParam(defaultValue = "122222222") int size,
 	                             @RequestParam(defaultValue = "id") String sortBy,
 	                             @RequestParam(defaultValue = "asc") String order,
 	                             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate desde,
