@@ -43,7 +43,7 @@ public class CitasDePrueba implements Serializable {
     @JoinColumn(name="idcliente")
     private Cliente cliente;
 
-    @OneToOne(mappedBy = "citasdeprueba", optional = true)  
+    @OneToOne(mappedBy = "citadeprueba", optional = true)  
     private Evaluacion evaluacion;
     
     
